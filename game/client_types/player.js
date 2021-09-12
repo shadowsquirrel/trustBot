@@ -31,14 +31,107 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         W.generateFrame();
 
         // Add widgets.
-        this.visuaStage = node.widgets.append('VisualStage', header);
-        this.visualRound = node.widgets.append('VisualRound', header);
+        this.visualRound = node.widgets.append('VisualRound', header, {
+            displayModeNames: [
+                'COUNT_UP_ROUNDS_TO_TOTAL'
+            ],
+        });
         this.visualTimer = node.widgets.append('VisualTimer', header, {
             hidden: true // Initially hidden.
         });
-        this.doneButton = node.widgets.append('DoneButton', header, {
-            hidden: true // Initially hidden.
+        this.doneButton = node.widgets.append('DoneButton', header);
+        this.doneButton.hide();
+
+        W.setRightPadding = function(val) {
+            var myframe = W.gid('ng_mainframe');
+            var myLength = val + 'px';
+            myframe.style.paddingRight = myLength;
+        };
+
+        // Scrolls into view an element with a given id.
+        W.scrollInto = function(id, opts) {
+            var el;
+            el = W.gid(id);
+            if (!el) {
+                console.log('Element not available: ' + id);
+                return;
+            }
+            // Merge options with default.
+            opts = opts || {};
+            opts = {
+                behavior: 'smooth' || opts.behavior,
+                block: 'start' || opts.block
+            };
+            // TODO: this might fail in some browsers. Check.
+            el.scrollIntoView(opts);
+            // if (myDiv.scrollIntoView) {
+            //     myDiv.scrollIntoView({
+            //         behavior: 'smooth',
+            //         block: 'end'
+            //     });
+            // }
+        };
+
+        W.setHeight = function(val) {
+            var myframe = W.gid('ng_mainframe');
+            var myHeight = val + 'px';
+            myframe.style.minHeight = myHeight;
+        };
+
+        W.goUp = function(val) {
+            if (val != undefined )  {
+                W.setHeight(val);
+            }
+            var endDiv = W.gid('start');
+            endDiv.scrollIntoView({behavior:'smooth'});
+        };
+
+        W.goDown = function(val) {
+            if (val != undefined )  {
+                W.setHeight(val);
+            }
+            var endDiv = W.gid('end');
+
+            setTimeout(()=>{
+                endDiv.scrollIntoView({behavior:'smooth'});
+            }, 750)
+
+        };
+
+        // ---------------------------- //
+
+        W.setRightPadding(125);
+
+        W.setHeaderPosition('right');
+
+        node.on('setHeight', function(val) {
+            W.setHeight(val);
         });
+
+        node.on('goUp', function(val) {
+            W.goUp(val);
+        });
+
+        node.on('goDown', function(val) {
+            W.goDown(val);
+        });
+
+        node.on('scrollTo', function(id, val) {
+
+            if (val != undefined )  {
+                W.setHeight(val);
+            }
+
+            this.talk('scroll into div ' + id)
+
+            var targetDiv = W.gid(id);
+
+            setTimeout(()=>{
+                targetDiv.scrollIntoView({behavior:'smooth'});
+            })
+
+
+        })
 
         // No need to show the wait for other players screen in single-player
         // games.
@@ -169,6 +262,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.talk('Experiment Stage - Round ' + round);
 
         },
+
+        done: function() {
+
+            // node.game.talk('EXPERIMENT STAGE - INSIDE DONE CALL BACK')
+
+            // node.say('memorySave-LOGIC', 'SERVER');
+
+        }
 
     });
 

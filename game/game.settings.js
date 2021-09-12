@@ -20,28 +20,13 @@ module.exports = {
 
     // #nodeGame properties:
 
-    /**
-     * ### TIMER (object) [nodegame-property]
-     *
-     * Maps the names of the steps of the game to timer durations
-     *
-     * If a step name is found here, then the value of the property is
-     * used to initialize the game timer for the step.
-     */
-    TIMER: {
-        guess: 10000
-    },
 
     // # Game specific properties
 
     // Number of game rounds to repeat.
     ROUNDS: 8,
 
-    // Number of coins available each round.
-    COINS: 1,
 
-    // Exchange rate coins to dollars.
-    EXCHANGE_RATE: 1,
 
     // # Treatments definition.
 

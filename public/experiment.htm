@@ -48,13 +48,13 @@
 
                     <div class='frame-B-0-0'>
 
-                        <div class='askRace'>
+                        <div class='askRace' style='text-align:left;'>
 
                             <p>
                                 What do you think the race of the person with the above name is?
                             </p>
 
-                            <div class=buttonWrap>
+                            <div class='buttonWrap noselect' style='display:inline-block; margin-left:30px; margin-top:20px;'>
 
                                 <div class=button id=white>Caucasian</div>
 
@@ -62,7 +62,9 @@
 
                                 <div class=button id=hispanic>Hispanic</div>
 
-                                <div class=button id=asian>Asian</div>
+                                <div class=button id=asian>Asian <span style='font-size:20px;'>(Indian, Middle-Eastern, Korean, Chinese)</span></div>
+
+                                <div class=button id=other>Other</div>
 
                             </div>
 
@@ -74,7 +76,7 @@
                                 What do you think the party affiliation of the person with the above name is?
                             </p>
 
-                            <div class=buttonWrap>
+                            <div class='buttonWrap noselect' style='font-size:30px;'>
 
                                 <div class=button id=democrat>Democrat</div>
 
@@ -84,13 +86,13 @@
 
                         </div>
 
-                        <div class='askEducation'>
+                        <div class='askEducation' style='text-align:left;margin-top:-20px;'>
 
                             <p>
                                 What do you think the education level of the person with the above name is?
                             </p>
 
-                            <div class=buttonWrap>
+                            <div class='buttonWrap noselect' style='display:inline-block; margin-left:30px; margin-top:20px;'>
 
                                 <div class=button id=primarySchool>Primary School</div>
 
@@ -112,7 +114,7 @@
                                 What do you think the age of the person with the above name is?
                             </p>
 
-                            <div class=buttonWrap>
+                            <div class='buttonWrap noselect'>
 
                                 <div class=button id=18-24>18-24</div>
 
@@ -138,14 +140,63 @@
 
                         <div class='askTrust'>
 
-                            <p>
-                                You have 10 tokens.
-                                <br />
-                                How many tokens do you choose to give to the
-                                <i>computer agent</i> <span id=botName2></span> ?
+                            <div class=hiddenGameInfo>
+                                <p>
+                                    You are endowed with <span class=bb>10</span> tokens
+                                    <br />
+                                    <span style='font-size:19px;font-style:italic;margin-bottom:-25px;'>
+                                        (1 token = 10 cents).
+                                    </span>
+                                    <br />
+                                    Choose <i>any</i>, <i>all</i> or <i>none</i> of this
+                                    amount to be send to the <i>computer agent</i>.
+                                    <br />
+                                    <br />
+                                    The amount you choose to send is <span class=b>trippled</span>.
+                                    <br />
+                                    <br />
+                                    <span style='font-size:24px;text-align:left;display:block;'>
+                                        &#8226; With <span class=b>50%</span> chance, <i>computer</i>
+                                        sends you <span class=b>half</span> of the <i>trippled</i> amount back.
+                                        <br />
+                                        &#8226; With <span class=b>50%</span> chance, <i>computer</i>
+                                        does <span class=b>NOT</span> send you <i>any</i> tokens back.
+                                        <br />
+                                    </span>
+                                </p>
+                            </div>
+
+                            <p class=nameTreatment>
+
+                                You have <span class=bb>10</span> tokens.
+
+                                <span style='display:block;margin-top:10px;font-size:24px;text-align:left;'>
+                                    You are playing <span class='bbu game'>the game</span>
+                                    with a <i>computer agent</i> called <span id=botName3 class=nameClass></span>.
+                                </span>
+
+                                <span style='display:block;margin-top:20px;margin-bottom:25px;text-align:left;font-size:24px;'>
+                                    <span id=botName4 class=nameClass></span> lives at <span id=botAddress></span>.
+                                </span>
+
+                                How many tokens do you choose to send to
+                                <span id=botName2 class=nameClass></span> ?
+
                             </p>
 
-                            <div class=buttonWrap>
+                            <p class=noNameTreatment>
+                                You have 10 tokens.
+                                <br />
+                                <br />
+                                You are playing <span class='bbu game'>the game</span>
+                                with the <i>computer agent</i>.
+                                <br />
+                                <br />
+                                How many tokens do you choose to send to the
+                                <i>computer agent</i>?
+                            </p>
+
+                            <div class='buttonWrap noselect' style='margin-top:20px;font-size:35px;'>
 
                                 <div class=button id=0>0</div>
 

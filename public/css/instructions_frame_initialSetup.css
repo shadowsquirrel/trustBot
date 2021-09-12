@@ -1,0 +1,19 @@
+.all
+{
+    opacity: 1;
+}
+.frame-A
+{
+    display:none;
+    opacity:0;
+}
+.frame-B
+{
+    display:none;
+    opacity:0;
+}
+.frame-C
+{
+    display:none;
+    opacity:0;
+}

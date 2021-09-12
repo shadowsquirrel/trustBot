@@ -22,3 +22,20 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+/*--------*/
+.b {
+    font-weight:500;
+}
+.bb {
+    font-weight:400;
+}
+.bu {
+    font-weight:500;
+    text-decoration: underline;
+}
+.bbu
+{
+    font-weight:400;
+    text-decoration: underline;
+}

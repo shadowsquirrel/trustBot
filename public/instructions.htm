@@ -1,23 +1,507 @@
-<!doctype html>
-<title>INSTRUCTIONS</title>
-<link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
-<link rel="stylesheet" href="/stylesheets/nodegame.css" />
-<link rel="stylesheet" href="css/style.css" />
-<body>
-  <div id="container">
-    <h1>Instructions</h1>
-    <h3>Please read them carefully</h3>
-    <div id="instructions">
-      <br>
-      In this game, you need to guess if the value
-      of a randomly generated number between 1 and 10 is larger than 5.
-      <br><br>
-      For each correct answer you will win <span id="coins"> - </span> ECU (Experimental Currency).
-      100 ECU are equal to <span id="exchange-rate"> - </span> USD.
-      <br><br>
-      The game is repeated <span id="rounds"> - </span> rounds.
-      <br><br>
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="css/frame.css">
+    <link rel="stylesheet" href="css/instructions_frame.css">
+    <link rel="stylesheet" href="css/instructions_frame_initialSetup.css">
+    <link rel="stylesheet" href="css/explanationBox.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+
+    <title>Face Test</title>
+
+</head>
+<body class=myBody>
+
+    <!-- <buttton type='button' class='myButton0' id='disconnectButton'>Disconnect</buttton> -->
+
+    <div id=start></div>
+
+    <div class = 'wrap' style='margin-top:10px;'>
+
+        <div class='debugInfoBoxText'>
+            <p>
+                <span id=debugInfoBoxText></span>
+            </p>
+        </div>
+
+        <div class = 'all'>
+
+            <div class=welcomeTitle>
+                <p class ='title1'>
+                    <span id='mainmainTitle'></span>
+                </p>
+            </div>
+
+
+
+
+            <div class='boxbox' id='boxbox-A' style='display:block;'></div>
+
+
+            <div class=line-A>
+
+            </div>
+
+
+            <div class='boxbox' id='boxbox-B' style='display:block;margin-top:50px;'></div>
+
+
+            <div class=line-B>
+
+            </div>
+
+
+            <div class='boxbox' id='boxbox-C' style='display:block;'></div>
+
+            <div class=line-C>
+
+            </div>
+
+            <div class='boxbox' id='boxbox-D' style='display:block;'></div>
+
+
+        </div>
+
+
     </div>
-    If you understood the instructions correctly press the "DONE" button to proceed to the game.
-  </div>
+
+    <div id=end style='height:100px;width:100px;position:absolute;bottom:0;'></div>
+
+
+
+    <div class=boxStorage>
+
+        <div class=boxwrap id='boxwrap-A-1'>
+
+            <div class='box' id='box-A-1'>
+
+                <div class=text>
+                    <p>
+                        Welcome to our experiment!
+                        <br />
+                        <br />
+                        Please click the <strong>OK</strong> button to begin
+                        the <i>tutorial</i>.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-A-1'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-A-2'>
+
+            <div class='box' id='box-A-2'>
+
+                <div class=text>
+                    <p>
+                        During this tutorial,
+                        <br />
+                        you will encounter yellow information boxes such as this one.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-A-2'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-A-3'>
+
+            <div class='box' id='box-A-3'>
+
+                <div class=text>
+                    <p>
+                        You are expected to <i>carefully</i> read its content,
+                        <br />
+                        then click the <strong>OK</strong> button to proceed.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-A-3'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class=boxwrap id='boxwrap-A-4'>
+
+            <div class='box' id='box-A-4'>
+
+                <div class=text>
+                    <p>
+                        Please click the <strong>OK</strong> button to begin
+                        the tutorial.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-A-4'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-A-5'>
+
+            <div class='box' id='box-A-5'>
+
+                <div class=text>
+                    <p>
+                        In this experiment, <br />
+                         you will answer a series of <i>multiple choice questions</i>
+                         <br /> and play a <i>game</i> against a <i>computer agent</i>.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-A-5'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-A-6'>
+
+            <div class='box' id='box-A-6'>
+
+                <div class=text>
+                    <p>
+                        <!-- Under <span class=b>4</span> <i>slightly</i> different scenarios, -->
+                            Under <span class=b>4</span> different scenarios,
+                        <br />
+                        you will answer the <i>same</i> multiple choice questions
+                        and play the <i>same</i> game.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-A-6'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-A-7'>
+
+            <div class='box' id='box-A-7'>
+
+                <div class=text>
+                    <p>
+                        The multiple choice questions are self-explanatory and
+                        do not require a prior explanation.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-A-7'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-B-8'>
+
+            <div class='box' id='box-B-8'>
+
+                <div class=text>
+                    <p style='display:block;opacity:1' class=info-a-8-1>
+                        The game you will play is as follows:
+                    </p>
+                    <p class='bu info-a-8-2' style='display:none; opacity:0; font-size:30px;'>
+                        The game
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-B-8'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-B-9'>
+
+            <div class='box' id='box-B-9'>
+
+                <div class=text>
+                    <p>
+                        You will be endowed with <span class=b>10 tokens</span>
+                        <br /> and asked to send
+                        <i>any portion, all or none</i> of it to the <i>computer agent</i>.
+
+                        <span style='display:block;margin-top:15px;font-size:20px;font-style:italic;'>
+                            1 token = 10 cents
+                        </span>
+
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-B-9'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-B-10'>
+
+            <div class='box' id='box-B-10'>
+
+                <div class=text>
+                    <p>
+                        The amount you choose to send to the <i>computer agent</i>
+                        is <span class=b>trippled</span> (x3).
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-B-10'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-B-11'>
+
+            <div class='box' id='box-B-11'>
+
+                <div class=text>
+                    <p>
+                        After receiving the <i>trippled</i> amount, the <i>computer</i>
+                        makes a decision according to its <i>algorithm</i>:
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-B-11'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-B-12'>
+
+            <div class='box' id='box-B-12'>
+
+                <div class=text>
+                    <p>
+                        <span style='display:block;'>
+                            - With <span class=b>50% probability</span>,
+                            it will send <i>you</i> back
+                            <span class=b>half</span> of the <i>trippled</i>
+                            amount it received.
+                            <br />
+                            - With <span class=b>50% probability</span>,
+                            it will <span class=b>NOT</span> send you <i>any</i>
+                            tokens back.
+                        </span>
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-B-12'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-C-13'>
+
+            <div class='box' id='box-C-13'>
+
+                <div class=text>
+                    <p>
+                        During the experiment, this formerly explained game
+                        will simply be referred to as <span class=bu>the game</span>.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-C-13'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-C-14'>
+
+            <div class='box' id='box-C-14'>
+
+                <div class=hiddenGameInfo>
+                    <p>
+                        You are endowed with <span class=b>10</span> tokens
+                        <br />
+                        <span style='font-size:19px;font-style:italic;margin-bottom:-25px;'>
+                            (1 token = 10 cents).
+                        </span>
+                        <br />
+                        Choose <i>any</i>, <i>all</i> or <i>none</i> of this
+                        amount to be send to the <i>computer agent</i>.
+                        <br />
+                        <br />
+                        The amount you choose to send is <span class=b>trippled</span>.
+                        <br />
+                        <br />
+                        <span style='font-size:24px;text-align:left;display:block;'>
+                            &#8226; With <span class=b>50%</span> chance, <i>computer</i>
+                            sends you <span class=b>half</span> of the <i>trippled</i> amount back.
+                            <br />
+                            &#8226; With <span class=b>50%</span> chance, <i>computer</i>
+                            does <span class=b>NOT</span> send you <i>any</i> tokens back.
+                            <br />
+                        </span>
+                    </p>
+                </div>
+
+                <div class='text extraTextEnforcement'>
+                    <p>
+                        During the experiment,
+                        you can hover your mouse over <span class='bu game'>the game</span>
+                        text to recall how it is played.
+                    </p>
+                </div>
+
+                <div class=buttonWrap>
+                    <div class=button id='btn-C-14'>
+                        <p>
+                            OK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class=boxwrap id='boxwrap-D-15'>
+
+            <div class='box' id='box-D-15'>
+
+                <div class=text>
+                    <p>
+                        You are done with the tutorial!
+
+                        <span style='display:block;margin-top:30px;'>
+                            You will now take a short quiz on the information presented
+                            on this tutorial, then begin the experiment.
+                            <br />
+                            <br />
+                            Please take a moment to review the information presented above.
+                            <br />
+                            <br />
+                            When you are ready, click the <span class=b>Go to Quiz</span>
+                            button below.
+                        </span>
+                    </p>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class='boxwrap specialBoxWrap2' id='boxwrap-D-16' style='margin-top:15px;'>
+
+            <div class='box destroyBox' id='box-D-16' style='margin-left:-431px;'>
+
+                <div class='buttonWrap'>
+                    <div class='button specialButton2' id='btn-D-16'>
+                        <p>
+                            Go to Quiz
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/title.js"></script>
+    <script src="js/explanationBox.js"></script>
+    <script src="js/instructionButtons.js"></script>
+    <script src="js/instructions.js"></script>
+
+
 </body>
+</html>

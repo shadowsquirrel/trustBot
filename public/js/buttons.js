@@ -1,6 +1,6 @@
 
 // race buttons
-let raceDecisionList = ['white', 'black', 'hispanic', 'asian'];
+var raceDecisionList = ['white', 'black', 'hispanic', 'asian', 'other'];
 
 raceDecisionList.forEach(i => {
 
@@ -20,7 +20,7 @@ raceDecisionList.forEach(i => {
 
 
 // trust buttons
-let trustDecisionList = [1,2,3,4,5,6,7,8,9,10];
+var trustDecisionList = [0,1,2,3,4,5,6,7,8,9,10];
 
 trustDecisionList.forEach(i => {
 
@@ -40,7 +40,7 @@ trustDecisionList.forEach(i => {
 
 
 // party buttons
-let partyDecisionList = ['democrat', 'republican'];
+var partyDecisionList = ['democrat', 'republican'];
 
 partyDecisionList.forEach(i => {
 
@@ -60,7 +60,7 @@ partyDecisionList.forEach(i => {
 
 
 // education buttons
-let educationDecisionList = ['primarySchool', 'highSchool', 'bachelor', 'master', 'phd'];
+var educationDecisionList = ['primarySchool', 'highSchool', 'bachelor', 'master', 'phd'];
 
 educationDecisionList.forEach(i => {
 
@@ -80,7 +80,7 @@ educationDecisionList.forEach(i => {
 
 
 // age buttons
-let ageDecisionList = [
+var ageDecisionList = [
     '18-24', '25-29', '30-34', '35-39', '40-44', '45-49',
     '50-54', '55-59', '60plus'
 ];
@@ -100,3 +100,21 @@ ageDecisionList.forEach(i => {
     });
 
 });
+
+
+
+
+
+// --------------- //
+
+
+$('.game').hover(
+    function() {
+        $('.hiddenGameInfo').css({'transition':'0.25s', 'z-index':'1',
+        'opacity':'1'});
+    },
+    function() {
+        $('.hiddenGameInfo').css({'transition':'0.25s', 'z-index':'-1',
+        'opacity':'0'});
+    }
+)

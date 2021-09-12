@@ -57,14 +57,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 
         node.game.nameList = [
-            'AHMED JAMAL',
-            'BILL EVANS',
-            'MILES DAVIS',
-            'DUKE ELLINGTON',
-            'JOHN COLTRANE',
-            'THELONIOUS MONK',
-            'HERBIE HANCOCK',
-            'DAVE BRUBECK'
+            ['AHMED JAMAL', '240 Holcom Road'],
+            ['BILL EVANS', '4150 Arkweright Road'],
+            ['MILES DAVIS', '1592 Burton Avenue'],
+            ['DUKE ELLINGTON', '526 Edgefield Way'],
+            ['JOHN COLTRANE', '11792 Browntown Road'],
+            ['THELONIOUS MONK', '304 Pitt Moore Road'],
+            ['HERBIE HANCOCK', '16 Greenbriar Drive'],
+            ['DAVE BRUBECK', '7322 Garfield Street']
         ]
 
 
@@ -75,7 +75,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         //  1: name / race priming
         //  2: name / party priming
         //
-        node.game.treatment = 1;
+        node.game.treatment = -1;
 
 
         // initializing the player
@@ -92,18 +92,26 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             node.game.pl.each(function(player) {
 
-                player.shuffledNameList = J.shuffle(node.game.nameList);
+                if(!player.initiated) {
 
-                player.activeNameIndex = 0;
+                    player.initiated = true;
 
-                player.trustDecisionList = [];
+                    player.shuffledNameList = J.shuffle(node.game.nameList);
 
-                console.log();
-                console.log('Player ' + player.id + ' is initiated');
-                console.log(' player\'s shuffled name list is: '
-                + player.shuffledNameList);
-                console.log(' player\'s intial active name index: '
-                + player.activeNameIndex);
+                    player.activeNameIndex = 0;
+
+                    player.trustDecisionList = [];
+
+                    console.log();
+                    console.log('Player ' + player.id + ' is initiated');
+                    console.log(' player\'s shuffled name list is: '
+                    + player.shuffledNameList);
+                    console.log(' player\'s intial active name index: '
+                    + player.activeNameIndex);
+
+                } else {
+                    console.log('PLAYER ALREADY INITIATED');
+                }
 
             });
 
@@ -113,23 +121,32 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // listener to send (initial) data to the client
         node.on.data('playerData-LOGIC', function(msg) {
 
+            node.game.initPlayer();
+
             let player = node.game.pl.get(msg.from);
 
             console.log();
             console.log();
-            console.log('LOGIC: PLAYER ' + player.id + ' requested data.' +
-            ' Sending it to client...');
-
-            let activeName =  player.shuffledNameList[player.activeNameIndex];
-            let treatment = node.game.treatment;
+            console.log('LOGIC: PLAYER ' + player.id + ' requested data.');
 
             console.log('ACTIVE NAME INDEX: ' + player.activeNameIndex);
+
+            console.log('ACTIVE ARRAY: ' + player.shuffledNameList[player.activeNameIndex]);
+
+
+            let activeName =  player.shuffledNameList[player.activeNameIndex][0];
+            let activeAddress = player.shuffledNameList[player.activeNameIndex][1];
+            let treatment = node.game.treatment;
+
+
             console.log('ACTIVE NAME: ' + activeName);
+            console.log('ACTIVE ADDRESS: ' + activeAddress);
             console.log('TREATMENT: ' + treatment);
             console.log();
 
             let data = {
                 activeName: activeName,
+                activeAddress: activeAddress,
                 treatment: treatment
             }
 
@@ -176,6 +193,48 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         })
 
 
+        // listener to be triggered by client side to save memory at the end of
+        // every round
+        // node.on.data('memorySave-LOGIC', function() {
+        //
+        //     console.log('LOGIC: inside memory save listener');
+        //
+        //     memory.save('decision.csv', {
+        //
+        //         header: [
+        //             'player',
+        //             'treatment',
+        //             'name',
+        //             'race',
+        //             'party',
+        //             'trust',
+        //             'education',
+        //             'age'
+        //         ],
+        //
+        //         updatesOnly: true,
+        //
+        //     })
+        //
+        // })
+
+        memory.view('name').save('decision.csv', {
+
+            header: [
+                'player',
+                'treatment',
+                'name',
+                'race',
+                'party',
+                'trust',
+                'education',
+                'age'
+            ],
+
+            keepUpdated: true,
+
+        })
+
         // TO DO: function to calculate payoff for each trust decision
         // then use those decisions to calculate the final payoff for the
         // trust games.
@@ -184,7 +243,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         node.game.initPlayer();
 
     });
-
 
 
     stager.setOnGameOver(function() {

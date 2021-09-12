@@ -1,0 +1,72 @@
+.debugInfoBoxText
+{
+    position:absolute;
+    opacity:1;
+    font-size:25px;
+    margin-left:-1222px;
+}
+
+/*------------------------------*/
+.line-A
+{
+    transition:0.5s;
+    opacity:0;
+    width: 1000px;
+    border: 1px solid gray;
+    margin-top: 198px;
+}
+.line-B
+{
+    transition:0.5s;
+    display:none;
+    opacity:0;
+    width: 1000px;
+    border: 1px solid gray;
+    margin-top: 375px;
+}
+.line-C
+{
+    transition:0.5s;
+    display:none;
+    opacity:0;
+    width: 1000px;
+    border: 1px solid gray;
+    margin-top: 225px;
+    margin-bottom:25px;
+}
+/*------------------*/
+.game
+{
+    cursor:pointer;
+}
+.hiddenGameInfo
+{
+    opacity:0;
+    border-radius:100px;
+    position: absolute;
+    background: black;
+    border: 3px solid black;
+    border-style: solid;
+    padding: 17px;
+    top: -369px;
+    right: 0;
+    font-size: 26px;
+    color: white;
+    font-weight: 100;
+}
+.hiddenGameInfo:after
+{
+    z-index:-1;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 40px solid transparent;
+    border-top-color: #000000;
+    border-bottom: 0;
+    border-left: 0;
+    margin-left: 125px;
+    margin-bottom: -40px
+}

@@ -5,6 +5,7 @@
 
 let main = {};
 let name = {};
+let address = {};
 let icon = {};
 let question = {};
 let experiment = {};
@@ -33,13 +34,14 @@ name.set = function() {
     if(name.isDisplayed) {
 
         setTimeout(()=>{
-            $('#botName, #botName2').html(name.active);
+            $('#botName, #botName2, #botName3, #botName4').html(name.active);
+            $('#botAddress').html(address.active);
         }, 550)
 
     } else {
 
         setTimeout(()=>{
-            $('#botName, #botName2').html('');
+            $('#botName, #botName2, #botAddress').html('');
         }, 550)
 
     }
@@ -274,10 +276,16 @@ experiment.generate = function() {
 
     if(treatment === -1) {
         icon.set('laptop');
+        $('.humanComputer').css({'height':'245px'});
+        $('.hiddenGameInfo').addClass('hiddenGameInfo2')
         name.isDisplayed = false;
+        $('.nameTreatment').css({'display':'none'});
+        $('.noNameTreatment').css({'display':'block'});
     } else {
         icon.set('humanBot');
         name.isDisplayed = true;
+        $('.nameTreatment').css({'display':'block'});
+        $('.noNameTreatment').css({'display':'none'});
     }
 
     name.set();
