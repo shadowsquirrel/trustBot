@@ -82,7 +82,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         //
         // - shuffledNameList
         // - activeNameIndex = 0
-        // - trustDecisionList = []
+        // - payoffList = []
         //
         node.game.initPlayer = function() {
 
@@ -100,7 +100,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     player.activeNameIndex = 0;
 
-                    player.trustDecisionList = [];
+                    player.payoffList = [];
 
                     console.log();
                     console.log('Player ' + player.id + ' is initiated');
@@ -180,15 +180,34 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             let player = node.game.pl.get(msg.from);
 
-            let trustDecision = msg.data;
+            let trustDecision = msg.data.trust;
+            let name = msg.data.name;
+            let trustWorthy = (Math.random() > 0.5);
+            let moneyReturned = trustWorthy ? (1.5 * trustDecision) : 0;
+            let payoff = (10 - trustDecion) + moneyReturned;
 
-            player.trustDecisionList.push(trustDecision);
+            player.payoffList.push({
+                name: name,
+                trust: trustDecision, 
+                trustWorthy: trustWorthy,
+                payoff:payoff
+            });
 
             console.log();
-            console.log('LOGIC: TRUST DECISION ' + trustDecision +' OF PLAYER '
-            + player.id + ' IS RECORDED TO ITS TRUST DECISION LIST');
-            console.log(player.trustDecisionList);
+            console.log('LOGIC: trust decision ' + trustDecision + ' for name ' +
+            name + ' [trustWorthy: ' + trustWorthy + '] resulted in a return of ' +
+            moneyReturned + '-> payoff: ' + payoff);
+            console.log('updated payoff list');
+            console.log(player.payoffList);
             console.log();
+
+        })
+
+        node.on.data('payoffDataRequest-LOGIC', function(msg) {
+
+            let player = node.game.pl.get(msg.from);
+
+            node.say('LOGIC-payoffData', player.id, player.payoffList);
 
         })
 

@@ -174,6 +174,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             // -------------------------------------------- //
             // -----------  CLIENT --> LOGIC  ------------- //
             // -------------------------------------------- //
+            var trustData = {
+                trust: msg.trust,
+                name: msg.name
+            }
             node.say('trustDecision-LOGIC', 'SERVER', msg.trust)
 
 
@@ -188,6 +192,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 education: msg.education,
                 age: msg.age
             })
+
+        })
+
+        node.on('HTML-payoffDataRequest', function() {
+
+            node.say('payoffDataRequest-LOGIC', 'SERVER');
 
         })
 
@@ -209,6 +219,17 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.talk(data)
 
             node.emit('playerData-HTML', data);
+
+        })
+
+        node.on.data('LOGIC-payoffData', function(msg) {
+
+            let data = msg.data;
+
+            node.game.talk('CLIENT: PAYOFF DATA RECEIVED FROM LOGIC')
+            node.game.talk(data)
+
+            node.emit('payoffData-HTML', data);
 
         })
 
