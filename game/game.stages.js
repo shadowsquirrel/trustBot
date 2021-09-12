@@ -21,8 +21,8 @@ module.exports = function(stager, settings) {
         .next('end')
         .gameover();
 
-        stager.skip('instructions');
-        stager.skip('quiz');
+        // stager.skip('instructions');
+        // stager.skip('quiz');
         // stager.skip('experiment');
         stager.skip('results');
         stager.skip('survey1');

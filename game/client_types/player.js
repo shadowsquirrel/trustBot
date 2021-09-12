@@ -248,7 +248,127 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         cb: function() {
 
+            node.game.doneButton.show();
+            parent.scrollTo(0,0);
+            W.cssRule('.choicetable-left, .choicetable-right ' +
+            '{ width: 200px !important; }');
+
+            W.cssRule('table.choicetable td { text-align: left !important; ' +
+            'font-weight: normal; padding-left: 10px; }');
+
+            W.setHeight(1300);
+
         },
+
+
+
+        widget: {
+            name: 'ChoiceManager',
+            id: 'quiz',
+            options: {
+                mainText: 'Answer the following questions to check ' +
+                'your understanding of the game.',
+                forms: [
+                    {
+                        name: 'ChoiceTable',
+                        id: 'tasks',
+                        mainText: 'What are your tasks in this experiment?',
+                        choices: [
+                            'Only answer the multiple choice questions',
+                            'Only play the previously described game.',
+                            'Answer the multiple choice questions and player the game'
+                        ],
+                        correctChoice: 2,
+                        orientation: 'v'
+                    },
+                    {
+                        name: 'ChoiceTable',
+                        id: 'tokenWorth',
+                        mainText: 'You are endowed with 10 token for each game. ' +
+                        'How much each token is worth?',
+                        choices: [
+                            '1 cent',
+                            '10 cents',
+                            '100 cents'
+                        ],
+                        correctChoice: 1,
+                        orientation: 'v'
+                    },
+                    {
+                        name: 'ChoiceTable',
+                        id: 'gameOpponent',
+                        mainText: 'Who do you play the game with?',
+                        choices: [
+                            'I play the game with an other player',
+                            'I play the game with a computer',
+                            'I play the game with a computer and an other player'
+                        ],
+                        correctChoice: 1,
+                        orientation: 'v'
+                    },
+                    {
+                        name: 'ChoiceTable',
+                        id: 'trippledMoney',
+                        mainText: 'What happens to the money you send to the other player?',
+                        choices: [
+                            'Nothing happens.',
+                            'The money I send to the other player is doubled.',
+                            'The money I send to the other player is trippled.'
+                        ],
+                        correctChoice: 2,
+                        orientation: 'v'
+                    },
+                    {
+                        name: 'ChoiceTable',
+                        id: 'opponentDecision',
+                        mainText: 'What does the computer opponent do after receiving the money',
+                        choices: [
+                            'The computer decides whether to accept or reject the money I send.',
+                            'The computer does nothing',
+                            'With a 50% chance, the computer returns back half of the money ' +
+                            ' it receives and with a 50% chance, the computer returns nothing back.'
+                        ],
+                        correctChoice: 2,
+                        orientation: 'v'
+                    },
+                    {
+                        name: 'ChoiceTable',
+                        id: 'hardQuestion1',
+                        mainText: 'Assume you sent 10 tokens and the computer' +
+                        ' decided to return half of it. How many tokens in total ' +
+                        'do you have at the end?',
+                        choices: [
+                            '5 tokens',
+                            '10 tokens',
+                            '15 tokens'
+                        ],
+                        correctChoice: 2,
+                        orientation: 'v'
+                    },
+
+                    {
+                        name: 'ChoiceTable',
+                        id: 'hardQuestion2',
+                        mainText: 'Assume the computer returns half of the money it received.' +
+                        'You have 13 tokens in total at the end. How many tokens ' +
+                        'did you send to the computer?',
+                        choices: [
+                            '4 tokens',
+                            '6 tokens',
+                            '8 tokens'
+                        ],
+                        correctChoice: 1,
+                        orientation: 'v'
+                    },
+
+                ],
+
+                formsOptions: {
+                shuffleChoices: true,
+            },
+            className: 'centered'
+        }
+    }
 
     });
 
