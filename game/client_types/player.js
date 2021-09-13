@@ -211,6 +211,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // passing the request to logic
         // logic responds by sending it back another message to client
         // to be passed to html
+        //
+        // SOME ISSUED WITH THE END OF THIS PROCESS WHERE WE STORE IT 
+        //
         node.on('HTML-payoffDataRequest', function() {
 
             node.say('payoffDataRequest-LOGIC', 'SERVER');
@@ -260,6 +263,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 
         // receiving player's final total payoff data and node.set to memory
+        //
+        // SOME ISSUED WITH THE MEMORY SIDE OF THIS LISTENER
+        //
         node.on.data('LOGIC-finalPayoff', function(msg) {
 
             let data = msg.data;

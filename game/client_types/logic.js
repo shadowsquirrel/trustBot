@@ -263,14 +263,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
-        // Final payoff
+        // Final payoff (SOME ISSUES)
+        //
+        // our attempt to calculate final payoff a second time in logic side
+        // then record it did not work. Maybe you open a view on a variable
+        // if other variables are not with in the same nested object it is unable to
+        // read
+        // Treatment variable is a part of a previous stage
+        // final payoff 2 data is a part of also a previous (I think not sure)
+        //
         memory.view('finalPayoff').save('finalPayoff.csv', {
 
             header: [
                 'player',
-                'treatment',
+                // 'treatment',
                 'finalPayoff',
-                'finalPayoff2'
+                // 'finalPayoff2'
             ],
 
             keepUpdated: true,
