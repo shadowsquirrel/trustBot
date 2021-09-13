@@ -209,11 +209,17 @@ window.onload = function() {
         setTimeout(()=>{
 
             box.transition('D-15', 'D-16', 1, 1, 1, 0);
-            box.button.show2('D-16');
+            box.button.show('D-16');
 
         }, 800)
 
     });
+
+    $('#btn-D-16').click(function() {
+
+        node.emit('HTML-endTutorial');
+
+    })
 
     // --------------------- //
 

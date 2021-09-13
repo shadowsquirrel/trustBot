@@ -23,7 +23,7 @@ module.exports = function(stager, settings) {
 
         stager.skip('instructions');
         stager.skip('quiz');
-        stager.skip('experiment');
+        // stager.skip('experiment');
         stager.skip('survey1');
         stager.skip('survey2');
         // stager.skip('results');

@@ -25,18 +25,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.setOnInit(function() {
 
-        // Feedback.
-        memory.view('feedback').save('feedback.csv', {
-            header: [ 'time', 'timestamp', 'player', 'feedback' ],
-            keepUpdated: true
-        });
-
-        // Email.
-        memory.view('email').save('email.csv', {
-            header: [ 'timestamp', 'player', 'email' ],
-            keepUpdated: true
-        });
-
         //-------- SOME DEBUG METHODS --------//
 
         // Identifies the player in the console
@@ -53,8 +41,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         });
 
 
-        // ------------------- //
-
+        // -------- GLOBALS ----------- //
 
         node.game.nameList = [
             ['AHMED JAMAL', '240 Holcom Road'],
@@ -77,6 +64,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         //
         node.game.treatment = 1;
 
+        // ---------------------------- //
 
         // initializing the player
         //
@@ -181,13 +169,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // listener to store player's trust decision to be used for final payment
         node.on.data('trustDecision-LOGIC', function(msg) {
 
+            console.log('LOGIC: TRUST DECISION RECEIVED -> ' + msg.data);
+
             let player = node.game.pl.get(msg.from);
 
             let trustDecision = msg.data.trust;
             let name = msg.data.name;
             let trustWorthy = (Math.random() > 0.5);
             let moneyReturned = trustWorthy ? (1.5 * trustDecision) : 0;
-            let payoff = (10 - trustDecion) + moneyReturned;
+            let payoff = (10 - trustDecision) + moneyReturned;
 
             player.payoffList.push({
                 name: name,
@@ -208,11 +198,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
+
         // calculates final total payoff in logic side
         // sends this information to client side
         // client simply receive and node.sets it
         // we do this to double check the calculations made in html side
-        node.game.calculateTotalPayoff = function(player, pList) {
+        node.game.calculateFinalTotalPayoff = function(player, pList) {
 
             let totalPayoff = 0;
 
@@ -228,6 +219,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         }
 
+
         // listener to send game results and decision to client
         // client directs those to html to be displayed
         node.on.data('payoffDataRequest-LOGIC', function(msg) {
@@ -238,6 +230,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
+
+        // ------ MEMORY ------ //
+
+        // Feedback.
+        memory.view('feedback').save('feedback.csv', {
+            header: [ 'time', 'timestamp', 'player', 'feedback' ],
+            keepUpdated: true
+        });
+
+        // Email.
+        memory.view('email').save('email.csv', {
+            header: [ 'timestamp', 'player', 'email' ],
+            keepUpdated: true
+        });
+
+        // Experiment
         memory.view('name').save('decision.csv', {
 
             header: [
@@ -255,6 +263,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
+        // Final payoff
         memory.view('finalPayoff').save('finalPayoff.csv', {
 
             header: [
@@ -269,8 +278,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         })
 
 
+        // --- INITIALIZATION --- //
 
         node.game.initPlayer();
+
 
     });
 

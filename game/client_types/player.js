@@ -42,6 +42,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.doneButton = node.widgets.append('DoneButton', header);
         this.doneButton.hide();
 
+
+        // --------------------------------------- //
+        // -------------- HELPERS ---------------- //
+        // --------------------------------------- //
+
         W.setRightPadding = function(val) {
             var myframe = W.gid('ng_mainframe');
             var myLength = val + 'px';
@@ -98,7 +103,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         };
 
-        // ---------------------------- //
+
+        // --------------------------------------- //
+        // ---------  HELPER LISTENERS  ---------- //
+        // --------------------------------------- //
 
         W.setRightPadding(125);
 
@@ -142,6 +150,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.say('debug', 'SERVER', msg);
         };
 
+
         // ------------------------------------------------------------------ //
         // -   - -   - -   - -   - -   - -   - -   - -   - -   - -   - -   -  //
         // ------------------------------------------------------------------ //
@@ -180,7 +189,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 trust: msg.trust,
                 name: msg.name
             }
-            node.say('trustDecision-LOGIC', 'SERVER', msg.trust)
+            node.say('trustDecision-LOGIC', 'SERVER', trustData)
 
 
             node.game.talk('CLIENT SIDE: ENDING ROUND -> NODE.DONE & SAVE')
@@ -197,6 +206,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
+
         // listening for html payoff and game decision results data request
         // passing the request to logic
         // logic responds by sending it back another message to client
@@ -208,6 +218,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         })
 
 
+        node.on('HTML-endTutorial', function() {
+
+            node.done();
+
+        })
+
         // ------------------------------------------------------------------ //
         // ------------------------------------------------------------------ //
         // -------------------                          --------------------- //
@@ -215,6 +231,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // -------------------                          --------------------- //
         // ------------------------------------------------------------------ //
         // ------------------------------------------------------------------ //
+
 
         // receiving player's data from logic and sending it to html
         node.on.data('LOGIC-playerData', function(msg) {
@@ -228,6 +245,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
+
         // receiving player's payoff and decision data and passing to html
         node.on.data('LOGIC-payoffData', function(msg) {
 
@@ -239,6 +257,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.emit('payoffData-HTML', data);
 
         })
+
 
         // receiving player's final total payoff data and node.set to memory
         node.on.data('LOGIC-finalPayoff', function(msg) {
@@ -272,6 +291,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.say('playerData-LOGIC', 'SERVER');
 
         })
+
 
         // receiving player's final total payoff data (calculated in html)
         // and node.done to end the stage and pass it to the memory
@@ -430,6 +450,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         frame: 'experiment.htm',
 
+        init: function() {
+            this.doneButton.hide();
+        },
+
         cb: function() {
 
             var round  = node.game.getRound();
@@ -437,13 +461,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         },
 
-        done: function() {
-
-            // node.game.talk('EXPERIMENT STAGE - INSIDE DONE CALL BACK')
-
-            // node.say('memorySave-LOGIC', 'SERVER');
-
-        }
 
     });
 

@@ -10,8 +10,6 @@ let finalCalculatedPayoff = undefined;
 let result = {}
 
 
-
-
 result.compile = function(data) {
 
     for(var i = 0; i < data.length; i++) {
@@ -52,7 +50,8 @@ result.appendResult = function(index) {
 
     if(tempTrust > 0) {
 
-        var string1 = "<p>You sent <span class=bb>" + tempTrust + "</span> tokens to " + tempName + ".</p>";
+        var string1 = "<p>You sent <span class=bb>" + tempTrust +
+        "</span> tokens to <span class=bb>" + tempName + "</span>.</p>";
         let div1 = $(string1);
         $(parentName).append(div1);
 
