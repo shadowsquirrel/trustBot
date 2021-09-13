@@ -75,7 +75,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         //  1: name / race priming
         //  2: name / party priming
         //
-        node.game.treatment = -1;
+        node.game.treatment = 1;
 
 
         // initializing the player
@@ -83,6 +83,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // - shuffledNameList
         // - activeNameIndex = 0
         // - payoffList = []
+        // - finalTotalPayoff
         //
         node.game.initPlayer = function() {
 
@@ -99,6 +100,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     player.shuffledNameList = J.shuffle(node.game.nameList);
 
                     player.activeNameIndex = 0;
+
+                    player.finalTotalPayoff = 0;
 
                     player.payoffList = [];
 
@@ -188,7 +191,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             player.payoffList.push({
                 name: name,
-                trust: trustDecision, 
+                trust: trustDecision,
                 trustWorthy: trustWorthy,
                 payoff:payoff
             });
@@ -201,8 +204,32 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log(player.payoffList);
             console.log();
 
+            node.game.calculateFinalTotalPayoff(player, player.payoffList);
+
         })
 
+        // calculates final total payoff in logic side
+        // sends this information to client side
+        // client simply receive and node.sets it
+        // we do this to double check the calculations made in html side
+        node.game.calculateTotalPayoff = function(player, pList) {
+
+            let totalPayoff = 0;
+
+            for(let i = 0; i < pList.length; i++) {
+
+                totalPayoff = totalPayoff + pList[i].payoff;
+
+            }
+
+            player.finalTotalPayoff = totalPayoff;
+
+            node.say('LOGIC-finalPayoff', player.id, player.finalTotalPayoff);
+
+        }
+
+        // listener to send game results and decision to client
+        // client directs those to html to be displayed
         node.on.data('payoffDataRequest-LOGIC', function(msg) {
 
             let player = node.game.pl.get(msg.from);
@@ -210,32 +237,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.say('LOGIC-payoffData', player.id, player.payoffList);
 
         })
-
-
-        // listener to be triggered by client side to save memory at the end of
-        // every round
-        // node.on.data('memorySave-LOGIC', function() {
-        //
-        //     console.log('LOGIC: inside memory save listener');
-        //
-        //     memory.save('decision.csv', {
-        //
-        //         header: [
-        //             'player',
-        //             'treatment',
-        //             'name',
-        //             'race',
-        //             'party',
-        //             'trust',
-        //             'education',
-        //             'age'
-        //         ],
-        //
-        //         updatesOnly: true,
-        //
-        //     })
-        //
-        // })
 
         memory.view('name').save('decision.csv', {
 
@@ -254,9 +255,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
-        // TO DO: function to calculate payoff for each trust decision
-        // then use those decisions to calculate the final payoff for the
-        // trust games.
+        memory.view('finalPayoff').save('finalPayoff.csv', {
+
+            header: [
+                'player',
+                'treatment',
+                'finalPayoff',
+                'finalPayoff2'
+            ],
+
+            keepUpdated: true,
+
+        })
+
 
 
         node.game.initPlayer();

@@ -215,6 +215,7 @@ window.onload = function() {
 
     });
 
+    // --------------------- //
 
     $('.game').hover(
         function() {

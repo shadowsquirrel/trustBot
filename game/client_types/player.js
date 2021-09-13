@@ -162,7 +162,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         // receiving player's decision from html, storing the decision and
         // ending the stage
+        //
         // sending trust decision to logic to be stored for payoff stage
+        //
         node.on('HTML-decision', function(msg) {
 
             node.game.talk('CLIENT SIDE: DECISION DATA IS RECEIVED FROM HTML')
@@ -195,6 +197,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
+        // listening for html payoff and game decision results data request
+        // passing the request to logic
+        // logic responds by sending it back another message to client
+        // to be passed to html
         node.on('HTML-payoffDataRequest', function() {
 
             node.say('payoffDataRequest-LOGIC', 'SERVER');
@@ -222,6 +228,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         })
 
+        // receiving player's payoff and decision data and passing to html
         node.on.data('LOGIC-payoffData', function(msg) {
 
             let data = msg.data;
@@ -230,6 +237,20 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.talk(data)
 
             node.emit('payoffData-HTML', data);
+
+        })
+
+        // receiving player's final total payoff data and node.set to memory
+        node.on.data('LOGIC-finalPayoff', function(msg) {
+
+            let data = msg.data;
+
+            node.game.talk('CLIENT: FINAL TOTAL PAYOFF DATA RECEIVED FROM LOGIC')
+            node.game.talk(data)
+
+            node.set({
+                finalPayoff2:data
+            })
 
         })
 
@@ -249,6 +270,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             this.talk('CLIENT: HTML REQUESTING PLAYER DATA');
 
             node.say('playerData-LOGIC', 'SERVER');
+
+        })
+
+        // receiving player's final total payoff data (calculated in html)
+        // and node.done to end the stage and pass it to the memory
+        node.on('HTML-reportFinalPayoff', function(msg) {
+
+            this.talk('CLIENT: HTML SENT CALCULATED FINAL PAYOFF: ' + msg);
+
+            node.done({
+                finalPayoff:msg
+            })
 
         })
 
@@ -436,7 +469,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('results', {
 
-        frame: 'game.htm',
+        frame: 'results.htm',
 
         cb: function() {
 

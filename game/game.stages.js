@@ -21,12 +21,12 @@ module.exports = function(stager, settings) {
         .next('end')
         .gameover();
 
-        // stager.skip('instructions');
-        // stager.skip('quiz');
-        // stager.skip('experiment');
-        stager.skip('results');
+        stager.skip('instructions');
+        stager.skip('quiz');
+        stager.skip('experiment');
         stager.skip('survey1');
         stager.skip('survey2');
-        stager.skip('end');
+        // stager.skip('results');
+        // stager.skip('end');
 
 };
