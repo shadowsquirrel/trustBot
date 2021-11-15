@@ -64,8 +64,6 @@ window.onload = function() {
 
     $('#doneWithResults').click(function() {
 
-        console.log('wtf wtf');
-
         var myFinalPayoff = finalCalculatedPayoff;
 
         node.emit('HTML-reportFinalPayoff', myFinalPayoff);
